@@ -1,0 +1,26 @@
+{
+    "name": "memory-card-game",
+    "version": "1.0.0",
+    "description": "A modern implementation of the classic Memory Card Game",
+    "main": "index.html",
+    "scripts": {
+        "start": "serve .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/matinshamsaei/memory-card-game.git"
+    },
+    "keywords": [
+        "memory-game",
+        "card-game",
+        "javascript",
+        "game"
+    ],
+    "author": "Matin Shamsaei",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/matinshamsaei/memory-card-game/issues"
+    },
+    "homepage": "https://matinshamsaei.github.io/memory-card-game"
+}
