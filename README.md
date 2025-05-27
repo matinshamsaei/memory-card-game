@@ -37,7 +37,7 @@ A modern implementation of the classic Memory Card Game built with vanilla JavaS
 
 ## Project Structure
 
-```
+```plaintext
 ├── index.html          # Main HTML file
 ├── styles.css          # Styling
 ├── js/
