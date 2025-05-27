@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Memory Card Game</h1>
+            <div class="stats">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer">00:00</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-sync"></i>
+                    <span id="moves">0</span> moves
+                </div>
+                <div class="stat">
+                    <i class="fas fa-trophy"></i>
+                    <span id="best-score">--:--</span>
+                </div>
+            </div>
+            <button id="new-game" class="btn">New Game</button>
+        </header>
+
+        <main>
+            <div id="game-board" class="game-board"></div>
+
+            <div class="game-history">
+                <h2>Game History</h2>
+                <div id="history-list" class="history-list">
+                    <!-- Game history items will be added here -->
+                </div>
+            </div>
+        </main>
+
+        <div id="win-modal" class="modal">
+            <div class="modal-content">
+                <h2>Congratulations! 🎉</h2>
+                <p>You won in <span id="final-time">00:00</span> with <span id="final-moves">0</span> moves!</p>
+                <div class="modal-buttons">
+                    <button id="play-again" class="btn">Play Again</button>
+                    <button id="close-modal" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <a href="mailto:matinshamsaei.gh@gmail.com" class="email">
+                    <span class="name">Matin Shamsaei</span>
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/matinshamsaei/" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://medium.com/@matinshamsaei" target="_blank" class="social-link">
+                    <i class="fab fa-medium"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/matinshamsaei/" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/card.js"></script>
+    <script type="module" src="js/board.js"></script>
+    <script type="module" src="js/game.js"></script>
+</body>
+
+</html>
