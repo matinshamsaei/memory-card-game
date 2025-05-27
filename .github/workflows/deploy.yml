@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 # Add permissions block
 permissions:
@@ -12,16 +13,13 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
@@ -30,10 +28,22 @@ jobs:
         run: |
           npm install -g serve
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Build
+        run: |
+          echo "No build step needed for static site"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          folder: . # The folder the action should deploy
-          branch: gh-pages # The branch the action should deploy to
-          clean: true # Automatically remove deleted files from the deployment
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
         id: deployment
