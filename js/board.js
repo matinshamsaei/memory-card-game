@@ -50,8 +50,8 @@ export class Board {
       }
     });
 
-    // Wait for 1 second
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Wait for 2 seconds
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Flip all cards back
     this.cards.forEach((card) => {

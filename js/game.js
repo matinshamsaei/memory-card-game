@@ -21,6 +21,7 @@ class Game {
     this.timerElement = document.getElementById("timer");
     this.bestScoreElement = document.getElementById("best-score");
     this.newGameButton = document.getElementById("new-game");
+    this.resetButton = document.getElementById("reset-game");
     this.playAgainButton = document.getElementById("play-again");
     this.closeModalButton = document.getElementById("close-modal");
     this.winModal = document.getElementById("win-modal");
@@ -33,16 +34,30 @@ class Game {
     // Card click events
     this.board.boardElement.addEventListener("click", (e) => {
       const cardElement = e.target.closest(".card");
-      if (!cardElement || !this.isPlaying) return;
+      if (!cardElement) return;
 
       const cardIndex = parseInt(cardElement.dataset.index);
       const card = this.board.cards[cardIndex];
+
+      // Start game on first card click if not already playing
+      if (!this.isPlaying) {
+        this.startNewGame();
+        this.board.flipCard(card);
+        return; // Don't count this as a move
+      }
+
       this.board.flipCard(card);
       this.incrementMoves();
     });
 
     // New game button
     this.newGameButton.addEventListener("click", () => this.startNewGame());
+
+    // Reset button
+    this.resetButton.addEventListener("click", () => {
+      this.resetGame();
+      this.isPlaying = false;
+    });
 
     // Play again button
     this.playAgainButton.addEventListener("click", () => {
@@ -66,6 +81,8 @@ class Game {
     await this.board.showAllCardsBriefly();
     this.isPlaying = true;
     this.startTimer();
+    this.newGameButton.disabled = true;
+    this.resetButton.disabled = false;
   }
 
   resetGame() {
@@ -75,6 +92,8 @@ class Game {
     this.updateTimer();
     this.board.initializeBoard();
     this.stopTimer();
+    this.newGameButton.disabled = false;
+    this.resetButton.disabled = true;
   }
 
   incrementMoves() {
@@ -166,6 +185,8 @@ class Game {
     this.updateBestScore();
     this.addToHistory(this.timer, this.moves);
     this.showWinModal();
+    this.newGameButton.disabled = false;
+    this.resetButton.disabled = true;
   }
 
   showWinModal() {
