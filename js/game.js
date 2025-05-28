@@ -2,7 +2,8 @@ import { Board } from "./board.js";
 
 class Game {
   constructor() {
-    this.board = new Board();
+    this.contentType = document.getElementById("content-type").value;
+    this.board = new Board(this.contentType);
     this.moves = 0;
     this.timer = 0;
     this.timerInterval = null;
@@ -28,9 +29,18 @@ class Game {
     this.finalTimeElement = document.getElementById("final-time");
     this.finalMovesElement = document.getElementById("final-moves");
     this.historyList = document.getElementById("history-list");
+    this.contentTypeSelect = document.getElementById("content-type");
   }
 
   initializeEventListeners() {
+    // Content type change event
+    this.contentTypeSelect.addEventListener("change", () => {
+      if (!this.isPlaying) {
+        this.contentType = this.contentTypeSelect.value;
+        this.board = new Board(this.contentType);
+      }
+    });
+
     // Card click events
     this.board.boardElement.addEventListener("click", (e) => {
       const cardElement = e.target.closest(".card");
@@ -77,6 +87,8 @@ class Game {
   }
 
   async startNewGame() {
+    this.contentType = this.contentTypeSelect.value;
+    this.board = new Board(this.contentType);
     this.resetGame();
     await this.board.showAllCardsBriefly();
     this.isPlaying = true;

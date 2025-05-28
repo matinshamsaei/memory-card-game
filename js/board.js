@@ -1,11 +1,12 @@
 import { Card } from "./card.js";
 
 export class Board {
-  constructor() {
+  constructor(contentType) {
     this.cards = [];
     this.flippedCards = [];
     this.matchedPairs = 0;
     this.totalPairs = 8; // We'll use 8 pairs of fruits
+    this.contentType = contentType;
     this.boardElement = document.getElementById("game-board");
     this.initializeBoard();
   }
@@ -16,28 +17,40 @@ export class Board {
     this.flippedCards = [];
     this.matchedPairs = 0;
 
-    // Get all available fruits from the Card class
-    const allFruits = Card.getAllFruits();
+    let allValues;
+    switch (this.contentType) {
+      case "fruits":
+        allValues = Card.getAllFruits();
+        break;
+      case "numbers":
+        allValues = Card.getAllNumbers();
+        break;
+      case "images":
+        allValues = Card.getAllImages();
+        break;
+      default:
+        allValues = Card.getAllFruits(); // Default to fruits if content type is invalid
+    }
 
-    // Randomly select 8 unique fruits
-    const selectedFruits = this.getRandomFruits(allFruits, this.totalPairs);
+    // Randomly select 8 unique values
+    const selectedValues = this.getRandomValues(allValues, this.totalPairs);
 
-    // Create pairs of cards with selected fruit values
-    const cardValues = [...selectedFruits, ...selectedFruits];
+    // Create pairs of cards with selected values
+    const cardValues = [...selectedValues, ...selectedValues];
 
     // Shuffle the cards
     this.shuffleArray(cardValues);
 
     // Create and add cards to the board
     cardValues.forEach((value, index) => {
-      const card = new Card(value, index);
+      const card = new Card(value, index, this.contentType);
       this.cards.push(card);
       this.boardElement.appendChild(card.element);
     });
   }
 
-  getRandomFruits(allFruits, count) {
-    const shuffled = [...allFruits];
+  getRandomValues(allValues, count) {
+    const shuffled = [...allValues];
     this.shuffleArray(shuffled);
     return shuffled.slice(0, count);
   }
